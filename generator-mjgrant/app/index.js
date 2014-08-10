@@ -8,17 +8,14 @@ module.exports = yeoman.generators.Base.extend({
     var prompts = [
       {
       name: 'siteTitle',
-      message: 'Site or app title:'
+      message: 'Site or app <title>'
     },{
-      name: 'authorName',
-      message: 'Site author:'
-    }, {
       name: 'appName',
-      message: 'node app name',
+      message: 'Node app name (no spaces)',
       default: 'none'
     }, {
-      name: 'description',
-      message: 'Description',
+      name: 'description:',
+      message: 'Site or app description',
       default: 'none'
     }, {
       name: 'version',
@@ -36,7 +33,8 @@ module.exports = yeoman.generators.Base.extend({
       default: 'MIT'
     }, {
       name: 'authorName',
-      message: 'Author name'
+      message: 'Author name',
+      default: 'John Smith',
     }, {
       name: 'authorEmail',
       message: 'Author email'
@@ -81,6 +79,7 @@ module.exports = yeoman.generators.Base.extend({
     var context = {
       site_name: this.siteTitle,
       author_name: this.authorName,
+      author_email: this.authorEmail,
       site_description: this.siteDescription,
     };
 
@@ -96,7 +95,7 @@ module.exports = yeoman.generators.Base.extend({
       homepage: this.props.homepage,
       repository: this.props.repository,
       author: {
-        name: this.props.authorOriginalName,
+        name: this.props.authorName,
         email: this.props.authorEmail,
         url: this.props.authorUrl
       },

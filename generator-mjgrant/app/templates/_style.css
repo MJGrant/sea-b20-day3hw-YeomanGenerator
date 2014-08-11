@@ -1,0 +1,30 @@
+/* =General
+-----------------------------------------------------------------------------*/
+ 
+/* hack for forcing scroll bars to stop page jog - http://www.splintered.co.uk/experiments/49/ */
+html { 
+  margin-bottom: 1px; 
+  min-height: 100%;
+}
+ 
+/* Remove padding and margin on selected elements*/
+h1,h2,h3,h4,h5,h6,pre,body,p,div {
+  margin: 0; padding: 0;
+}
+ 
+/*debug border on all divs*/
+div {
+   border: 1px solid #ccc;
+}
+ 
+/* Class for clearing floats */
+.clear {
+   clear:both;
+}
+ 
+/* Remove border around linked images and fix Firefox odd spaces */
+img {
+   border: 0;
+   vertical-align: bottom;
+}
+

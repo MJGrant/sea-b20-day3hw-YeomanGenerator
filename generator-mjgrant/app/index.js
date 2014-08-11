@@ -11,22 +11,23 @@ module.exports = yeoman.generators.Base.extend({
       message: 'Site or app <title>'
     },{
       name: 'appName',
-      message: 'Node app name (no spaces)',
+      message: 'Node app name [no spaces]',
       default: 'none'
     }, {
-      name: 'description:',
+      name: 'description',
       message: 'Site or app description',
       default: 'none'
     }, {
       name: 'version',
       message: 'Version',
-      default: '0.0.1'
+      default: '0.1.0'
     }, {
-      name: 'repository',
-      message: 'Project git repository'
+      name: 'main',
+      message: 'Main file',
+      default: 'server.js'
     }, {
-      name: 'homepage',
-      message: 'Project homepage'
+      name: 'github',
+      message: 'github repository url',
     }, {
       name: 'license',
       message: 'License',
@@ -34,7 +35,7 @@ module.exports = yeoman.generators.Base.extend({
     }, {
       name: 'authorName',
       message: 'Author name',
-      default: 'John Smith',
+      default: '',
     }, {
       name: 'authorEmail',
       message: 'Author email'
@@ -51,13 +52,11 @@ module.exports = yeoman.generators.Base.extend({
     this.prompt(prompts, function(props) {
       this.siteTitle = props.siteTitle;
       this.authorName = props.authorName;
+      this.authorEmail = props.authorEmail;
+      this.authorUrl = props.authorUrl;
+      this.github = props.github;
       this.appName = props.appName;
       this.description = props.description;
-      this.shortName = props.name;
-
-      if (!props.homepage) {
-        props.homepage = this.repoUrl;
-      }
 
       this.props = props;
 
@@ -75,7 +74,8 @@ module.exports = yeoman.generators.Base.extend({
     this.copy("_style.css", "stylesheets/style.css");
     this.copy("_gitignore", ".gitignore");
     this.copy("_server.js","server.js");
-
+    this.copy("_README.md", "README.md");
+    //vars used in populating the index.html file
     var context = {
       site_name: this.siteTitle,
       author_name: this.authorName,
@@ -84,7 +84,6 @@ module.exports = yeoman.generators.Base.extend({
     };
 
     this.template("_index.html", "index.html", context);
-    this.template("_package.json", "package.json", context);
   },
 
   createPkg: function() {
@@ -93,21 +92,29 @@ module.exports = yeoman.generators.Base.extend({
       version: this.props.version,
       description: this.props.description,
       homepage: this.props.homepage,
-      repository: this.props.repository,
+      repository: {
+        type: "git",
+        url: this.props.github
+      },
       author: {
         name: this.props.authorName,
         email: this.props.authorEmail,
         url: this.props.authorUrl
       },
       keywords: [],
-      main: 'index.js',
+      main: 'server.js',
       engines: {
         node: this.props.nodeVersion
       },
       license: this.props.license,
-      devDependencies: {},
+      devDependencies: {
+        "express": "^4.7.4",
+      },
       scripts: {}
     };
+
   this.writeFileFromString(JSON.stringify(pkgFile, null, 2), 'package.json');
+  console.log("\ncreated package.json\n");
   },
+  
 });

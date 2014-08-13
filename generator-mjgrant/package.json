@@ -1,0 +1,14 @@
+{
+  "name": "generator-mjgrant",
+  "version": "0.0.1",
+  "description": "Day 3 homework yeoman generator",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "yeoman-generator": "^0.17.2"
+  }
+}
